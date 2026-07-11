@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
 df = pd.read_csv("data/raw/Student_Placement_Record.csv")
 
@@ -164,3 +166,15 @@ print(X_test.shape)
 print(y_train.shape)
 
 print(y_test.shape)
+
+model = LogisticRegression()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+
+print()
+
+print("Model Accuracy:", accuracy)
