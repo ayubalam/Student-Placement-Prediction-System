@@ -4,6 +4,9 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.tree import DecisionTreeClassifier
 
 df = pd.read_csv("data/raw/Student_Placement_Record.csv")
 
@@ -120,7 +123,7 @@ df = pd.get_dummies(df, columns=["college_tier"], dtype=int)
 
 print()
 
-print(df.head())
+print(df.head()) 
 
 print()
 
@@ -178,3 +181,33 @@ accuracy = accuracy_score(y_test, y_pred)
 print()
 
 print("Model Accuracy:", accuracy)
+
+cm = confusion_matrix(y_test, y_pred)
+
+print()
+
+print(cm)
+
+print()
+
+print(classification_report(y_test, y_pred))
+
+decision_tree = DecisionTreeClassifier(random_state=42)
+
+decision_tree.fit(X_train, y_train)
+
+dt_predictions = decision_tree.predict(X_test)
+
+dt_accuracy = accuracy_score(y_test, dt_predictions)
+
+print()
+
+print("Decision Tree Accuracy:", dt_accuracy)
+
+print()
+
+print(confusion_matrix(y_test, dt_predictions))
+
+print()
+
+print(classification_report(y_test, dt_predictions))
