@@ -1,26 +1,54 @@
 from flask import Flask, render_template, request
+import pandas as pd
+import joblib
 
 app = Flask(__name__)
+
+model = joblib.load("models/placement_model.pkl")
+scaler = joblib.load("models/scaler.pkl")
 
 @app.route("/", methods=["GET", "POST"])
 def home():
 
+    prediction = None
+
     if request.method == "POST":
 
-        cgpa = request.form["cgpa"]
-
-        marks = request.form["marks"]
-
-        internship = request.form["internship"]
-
+        cgpa = float(request.form["cgpa"])
+        marks = float(request.form["marks"])
+        internship = int(request.form["internship"])
         tier = request.form["tier"]
 
-        print("CGPA:", cgpa)
-        print("Marks:", marks)
-        print("Internship:", internship)
-        print("College Tier:", tier)
+        tier1 = 0
+        tier2 = 0
+        tier3 = 0
 
-    return render_template("index.html")
+        if tier == "Tier 1":
+            tier1 = 1
+        elif tier == "Tier 2":
+            tier2 = 1
+        else:
+            tier3 = 1
+
+        student = pd.DataFrame({
+            "cgpa": [cgpa],
+            "placement_exam_marks": [marks],
+            "internship_experience": [internship],
+            "college_tier_Tier 1": [tier1],
+            "college_tier_Tier 2": [tier2],
+            "college_tier_Tier 3": [tier3]
+        })
+
+        student_scaled = scaler.transform(student)
+
+        result = model.predict(student_scaled)
+
+        if result[0] == 1:
+            prediction = "Placed"
+        else:
+            prediction = "Not Placed"
+
+    return render_template("index.html", prediction=prediction)
 
 if __name__ == "__main__":
     app.run(debug=True)
