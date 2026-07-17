@@ -7,10 +7,12 @@ app = Flask(__name__)
 model = joblib.load("models/placement_model.pkl")
 scaler = joblib.load("models/scaler.pkl")
 
+
 @app.route("/", methods=["GET", "POST"])
 def home():
 
     prediction = None
+    prediction_class = ""
 
     if request.method == "POST":
 
@@ -45,10 +47,17 @@ def home():
 
         if result[0] == 1:
             prediction = "Placed"
+            prediction_class = "success"
         else:
             prediction = "Not Placed"
+            prediction_class = "danger"
 
-    return render_template("index.html", prediction=prediction)
+    return render_template(
+        "index.html",
+        prediction=prediction,
+        prediction_class=prediction_class
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

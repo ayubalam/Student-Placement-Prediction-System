@@ -5,72 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Placement Prediction System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-    <h1>Student Placement Prediction System</h1>
+    <div class="container">
 
-    <form action="/" method="POST">
+        <h1>Student Placement Prediction System</h1>
 
-        <label for="cgpa">CGPA</label>
-        <br>
-        <input
-            type="number"
-            id="cgpa"
-            name="cgpa"
-            step="0.01"
-            min="0"
-            max="10"
-            placeholder="Enter CGPA"
-            required>
-        <br><br>
+        <form action="/" method="POST">
 
-        <label for="marks">Placement Exam Marks</label>
-        <br>
-        <input
-            type="number"
-            id="marks"
-            name="marks"
-            min="0"
-            max="100"
-            placeholder="Enter Marks"
-            required>
-        <br><br>
+            <label for="cgpa">CGPA</label>
 
-        <label for="internship">Internship Experience</label>
-        <br>
-        <select id="internship" name="internship" required>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-        </select>
-        <br><br>
+            <input
+                type="number"
+                id="cgpa"
+                name="cgpa"
+                step="0.01"
+                min="0"
+                max="10"
+                placeholder="Enter CGPA"
+                required>
 
-        <label for="tier">College Tier</label>
-        <br>
-        <select id="tier" name="tier" required>
-            <option value="Tier 1">Tier 1</option>
-            <option value="Tier 2">Tier 2</option>
-            <option value="Tier 3">Tier 3</option>
-        </select>
+            <label for="marks">Placement Exam Marks</label>
 
-        <br><br>
+            <input
+                type="number"
+                id="marks"
+                name="marks"
+                min="0"
+                max="100"
+                placeholder="Enter Marks"
+                required>
 
-        <button type="submit">
-            Predict
-        </button>
+            <label for="internship">Internship Experience</label>
 
-    </form>
+            <select id="internship" name="internship" required>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
 
-{% if prediction %}
+            <label for="tier">College Tier</label>
 
-<hr>
+            <select id="tier" name="tier" required>
+                <option value="Tier 1">Tier 1</option>
+                <option value="Tier 2">Tier 2</option>
+                <option value="Tier 3">Tier 3</option>
+            </select>
 
-<h2>Prediction Result</h2>
+            <button type="submit">
+                Predict Placement
+            </button>
 
-<h3>{{ prediction }}</h3>
+        </form>
+
+        {% if prediction %}
+
+<div class="result">
+
+    <h2>Prediction Result</h2>
+
+    <div class="{{ prediction_class }}">
+
+        {% if prediction == "Placed" %}
+            ✅ {{ prediction }}
+        {% else %}
+            ❌ {{ prediction }}
+        {% endif %}
+
+    </div>
+
+</div>
 
 {% endif %}
+
+    </div>
 
 </body>
 
