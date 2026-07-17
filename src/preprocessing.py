@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 df = pd.read_csv("data/raw/Student_Placement_Record.csv")
 
@@ -267,3 +268,31 @@ print()
 print("Classification Report")
 
 print(classification_report(y_test, rf_predictions))
+
+knn = KNeighborsClassifier(n_neighbors=5)
+
+knn.fit(X_train_scaled, y_train)
+
+knn_predictions = knn.predict(X_test_scaled)
+
+knn_accuracy = accuracy_score(y_test, knn_predictions)
+
+print()
+
+print("========== K-Nearest Neighbors ==========")
+
+print()
+
+print("Accuracy:", knn_accuracy)
+
+print()
+
+print("Confusion Matrix")
+
+print(confusion_matrix(y_test, knn_predictions))
+
+print()
+
+print("Classification Report")
+
+print(classification_report(y_test, knn_predictions))
