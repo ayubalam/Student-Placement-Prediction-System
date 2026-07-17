@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Placement Prediction System</title>
+</head>
+
+<body>
+
+    <h1>Student Placement Prediction System</h1>
+
+    <form action="/" method="POST">
+
+        <label for="cgpa">CGPA</label>
+        <br>
+        <input
+            type="number"
+            id="cgpa"
+            name="cgpa"
+            step="0.01"
+            min="0"
+            max="10"
+            placeholder="Enter CGPA"
+            required>
+        <br><br>
+
+        <label for="marks">Placement Exam Marks</label>
+        <br>
+        <input
+            type="number"
+            id="marks"
+            name="marks"
+            min="0"
+            max="100"
+            placeholder="Enter Marks"
+            required>
+        <br><br>
+
+        <label for="internship">Internship Experience</label>
+        <br>
+        <select id="internship" name="internship" required>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+        <br><br>
+
+        <label for="tier">College Tier</label>
+        <br>
+        <select id="tier" name="tier" required>
+            <option value="Tier 1">Tier 1</option>
+            <option value="Tier 2">Tier 2</option>
+            <option value="Tier 3">Tier 3</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Predict
+        </button>
+
+    </form>
+
+</body>
+
+</html>
