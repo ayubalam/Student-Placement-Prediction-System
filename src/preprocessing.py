@@ -13,6 +13,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
 df = pd.read_csv("data/raw/Student_Placement_Record.csv")
 
@@ -296,3 +297,31 @@ print()
 print("Classification Report")
 
 print(classification_report(y_test, knn_predictions))
+
+svm = SVC(kernel="linear", random_state=42)
+
+svm.fit(X_train_scaled, y_train)
+
+svm_predictions = svm.predict(X_test_scaled)
+
+svm_accuracy = accuracy_score(y_test, svm_predictions)
+
+print()
+
+print("========== Support Vector Machine ==========")
+
+print()
+
+print("Accuracy:", svm_accuracy)
+
+print()
+
+print("Confusion Matrix")
+
+print(confusion_matrix(y_test, svm_predictions))
+
+print()
+
+print("Classification Report")
+
+print(classification_report(y_test, svm_predictions))
