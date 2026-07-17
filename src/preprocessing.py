@@ -1,12 +1,16 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
-from sklearn.tree import DecisionTreeClassifier
 
 df = pd.read_csv("data/raw/Student_Placement_Record.csv")
 
@@ -123,7 +127,7 @@ df = pd.get_dummies(df, columns=["college_tier"], dtype=int)
 
 print()
 
-print(df.head()) 
+print(df.head())
 
 print()
 
@@ -170,25 +174,37 @@ print(y_train.shape)
 
 print(y_test.shape)
 
+scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+
+X_test_scaled = scaler.transform(X_test)
+
 model = LogisticRegression()
 
-model.fit(X_train, y_train)
+model.fit(X_train_scaled, y_train)
 
-y_pred = model.predict(X_test)
+y_pred = model.predict(X_test_scaled)
 
 accuracy = accuracy_score(y_test, y_pred)
 
 print()
 
-print("Model Accuracy:", accuracy)
-
-cm = confusion_matrix(y_test, y_pred)
+print("========== Logistic Regression ==========")
 
 print()
 
-print(cm)
+print("Accuracy:", accuracy)
 
 print()
+
+print("Confusion Matrix")
+
+print(confusion_matrix(y_test, y_pred))
+
+print()
+
+print("Classification Report")
 
 print(classification_report(y_test, y_pred))
 
@@ -202,12 +218,20 @@ dt_accuracy = accuracy_score(y_test, dt_predictions)
 
 print()
 
-print("Decision Tree Accuracy:", dt_accuracy)
+print("========== Decision Tree ==========")
 
 print()
+
+print("Accuracy:", dt_accuracy)
+
+print()
+
+print("Confusion Matrix")
 
 print(confusion_matrix(y_test, dt_predictions))
 
 print()
+
+print("Classification Report")
 
 print(classification_report(y_test, dt_predictions))
