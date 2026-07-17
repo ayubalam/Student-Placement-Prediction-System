@@ -11,6 +11,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
+from sklearn.ensemble import RandomForestClassifier
 
 df = pd.read_csv("data/raw/Student_Placement_Record.csv")
 
@@ -235,3 +236,34 @@ print()
 print("Classification Report")
 
 print(classification_report(y_test, dt_predictions))
+
+random_forest = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+
+random_forest.fit(X_train, y_train)
+
+rf_predictions = random_forest.predict(X_test)
+
+rf_accuracy = accuracy_score(y_test, rf_predictions)
+
+print()
+
+print("========== Random Forest ==========")
+
+print()
+
+print("Accuracy:", rf_accuracy)
+
+print()
+
+print("Confusion Matrix")
+
+print(confusion_matrix(y_test, rf_predictions))
+
+print()
+
+print("Classification Report")
+
+print(classification_report(y_test, rf_predictions))
