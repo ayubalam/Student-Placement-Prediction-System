@@ -19,6 +19,8 @@ body{
 
     align-items:center;
 
+    padding:40px 20px;
+
     background:linear-gradient(-45deg,#4facfe,#00f2fe,#43e97b,#38f9d7);
 
     background-size:400% 400%;
@@ -44,16 +46,14 @@ body{
 }
 
 /* =====================================
-   LOGIN CONTAINER
+   REGISTER CONTAINER
 ===================================== */
 
-.login-container{
+.register-container{
 
-    width:1100px;
+    width:1200px;
 
     max-width:95%;
-
-    min-height:650px;
 
     background:rgba(255,255,255,.15);
 
@@ -75,7 +75,7 @@ body{
    LEFT PANEL
 ===================================== */
 
-.login-left{
+.register-left{
 
     display:flex;
 
@@ -87,11 +87,11 @@ body{
 
 }
 
-.login-left img{
+.register-left img{
 
     width:100%;
 
-    max-width:430px;
+    max-width:450px;
 
     animation:float 4s ease-in-out infinite;
 
@@ -100,15 +100,15 @@ body{
 @keyframes float{
 
     0%{
-        transform:translateY(0px);
+        transform:translateY(0);
     }
 
     50%{
-        transform:translateY(-18px);
+        transform:translateY(-20px);
     }
 
     100%{
-        transform:translateY(0px);
+        transform:translateY(0);
     }
 
 }
@@ -117,7 +117,7 @@ body{
    RIGHT PANEL
 ===================================== */
 
-.login-right{
+.register-right{
 
     display:flex;
 
@@ -129,21 +129,17 @@ body{
 
 }
 
-.login-box{
+.register-box{
 
     width:100%;
 
-    max-width:420px;
+    max-width:470px;
 
 }
 
-/* =====================================
-   LOGIN CONTENT
-===================================== */
+.register-box h1{
 
-.login-box h1{
-
-    font-size:42px;
+    font-size:40px;
 
     color:#1565c0;
 
@@ -151,15 +147,13 @@ body{
 
 }
 
-.login-box p{
+.register-box p{
 
     color:#555;
 
-    margin-bottom:35px;
+    margin-bottom:30px;
 
     line-height:1.7;
-
-    font-size:16px;
 
 }
 
@@ -177,9 +171,9 @@ form label{
 
     display:block;
 
-    margin-bottom:8px;
-
     margin-top:18px;
+
+    margin-bottom:8px;
 
     font-weight:600;
 
@@ -187,7 +181,8 @@ form label{
 
 }
 
-form input{
+form input,
+form select{
 
     width:100%;
 
@@ -197,15 +192,16 @@ form input{
 
     border-radius:12px;
 
+    background:white;
+
     font-size:16px;
 
     transition:.3s;
 
-    background:white;
-
 }
 
-form input:focus{
+form input:focus,
+form select:focus{
 
     outline:none;
 
@@ -216,70 +212,44 @@ form input:focus{
 }
 
 /* =====================================
-   OPTIONS
+   PASSWORD FIELDS
 ===================================== */
 
-.options{
+input[type="password"]{
 
-    margin-top:20px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-}
-
-.remember{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    color:#555;
-
-    font-size:15px;
-
-}
-
-.remember input{
-
-    width:16px;
-
-    height:16px;
-
-}
-
-.options a{
-
-    text-decoration:none;
-
-    color:#1565c0;
-
-    font-size:15px;
-
-    transition:.3s;
-
-}
-
-.options a:hover{
-
-    text-decoration:underline;
+    letter-spacing:.5px;
 
 }
 
 /* =====================================
-   LOGIN BUTTON
+   PLACEHOLDER
+===================================== */
+
+::placeholder{
+
+    color:#999;
+
+}
+
+/* =====================================
+   SELECT
+===================================== */
+
+select{
+
+    cursor:pointer;
+
+}
+
+/* =====================================
+   REGISTER BUTTON
 ===================================== */
 
 button{
 
     width:100%;
 
-    margin-top:30px;
+    margin-top:35px;
 
     padding:16px;
 
@@ -308,11 +278,22 @@ button:hover{
     box-shadow:0 12px 25px rgba(21,101,192,.35);
 
 }
+
 /* =====================================
-   REGISTER LINK
+   BUTTON ACTIVE
 ===================================== */
 
-.register-link{
+button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =====================================
+   LOGIN LINK
+===================================== */
+
+.login-link{
 
     margin-top:30px;
 
@@ -324,7 +305,7 @@ button:hover{
 
 }
 
-.register-link a{
+.login-link a{
 
     color:#1565c0;
 
@@ -336,13 +317,14 @@ button:hover{
 
 }
 
-.register-link a:hover{
+.login-link a:hover{
 
     color:#0d47a1;
 
     text-decoration:underline;
 
 }
+
 
 /* =====================================
    DIVIDER
@@ -381,57 +363,12 @@ button:hover{
 
 }
 
-/* =====================================
-   SOCIAL LOGIN
-===================================== */
-
-.social-login{
-
-    display:flex;
-
-    gap:15px;
-
-    margin-top:20px;
-
-}
-
-.social-btn{
-
-    flex:1;
-
-    text-align:center;
-
-    padding:14px;
-
-    border-radius:12px;
-
-    background:white;
-
-    border:1px solid #dcdcdc;
-
-    text-decoration:none;
-
-    color:#444;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.social-btn:hover{
-
-    transform:translateY(-3px);
-
-    box-shadow:0 8px 18px rgba(0,0,0,.12);
-
-}
 
 /* =====================================
-   ANIMATION
+   FORM ANIMATION
 ===================================== */
 
-.login-box{
+.register-box{
 
     animation:fadeIn .8s ease;
 
@@ -457,13 +394,14 @@ button:hover{
 
 }
 
+
 /* =====================================
    RESPONSIVE DESIGN
 ===================================== */
 
 @media(max-width:992px){
 
-    .login-container{
+    .register-container{
 
         grid-template-columns:1fr;
 
@@ -471,13 +409,13 @@ button:hover{
 
     }
 
-    .login-left{
+    .register-left{
 
         display:none;
 
     }
 
-    .login-right{
+    .register-right{
 
         padding:40px 25px;
 
@@ -485,21 +423,23 @@ button:hover{
 
 }
 
+
 @media(max-width:768px){
 
-    .login-box h1{
+    .register-box h1{
 
         font-size:34px;
 
     }
 
-    .login-box p{
+    .register-box p{
 
         font-size:15px;
 
     }
 
-    form input{
+    form input,
+    form select{
 
         padding:14px;
 
@@ -512,22 +452,6 @@ button:hover{
         font-size:16px;
 
         padding:15px;
-
-    }
-
-    .options{
-
-        flex-direction:column;
-
-        gap:15px;
-
-        align-items:flex-start;
-
-    }
-
-    .social-login{
-
-        flex-direction:column;
 
     }
 
