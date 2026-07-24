@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Placement Dashboard</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="dashboard-header">
+        <h1>🎓 Student Placement Prediction Dashboard</h1>
+        <p>AI Powered Placement Analysis & Career Recommendation System</p>
+    </div>
+
+    <!-- ================= TOP STATISTICS ================= -->
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h3>🟢 Placement Status</h3>
+
+            <div class="{{ prediction_class }}">
+                {{ prediction }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📈 Placement Probability</h3>
+
+            <div class="progress">
+                <div class="progress-bar"
+                    style="width:{{ probability }}%;">
+                    {{ probability }}%
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🎯 Recommended Career</h3>
+
+            <div class="career-name">
+                {{ career_result.career }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>⭐ Career Match Score</h3>
+
+            <div class="career-score">
+                {{ career_result.career_score }}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= STUDENT SUMMARY ================= -->
+
+    <div class="card summary">
+
+        <h2>👨‍🎓 Student Summary</h2>
+
+        <table>
+
+            <tr>
+                <td>CGPA</td>
+                <td>{{ student_data.cgpa }}</td>
+            </tr>
+
+            <tr>
+                <td>Placement Exam Marks</td>
+                <td>{{ student_data.marks }}</td>
+            </tr>
+
+            <tr>
+                <td>Internship</td>
+                <td>{{ student_data.internship }}</td>
+            </tr>
+
+            <tr>
+                <td>College Tier</td>
+                <td>{{ student_data.tier }}</td>
+            </tr>
+
+            <tr>
+                <td>Communication</td>
+                <td>{{ student_data.communication }}</td>
+            </tr>
+
+            <tr>
+                <td>DSA Rating</td>
+                <td>{{ student_data.dsa_rating }}</td>
+            </tr>
+
+            <tr>
+                <td>Certifications</td>
+                <td>{{ student_data.certifications }}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- ================= TECHNICAL PROFILE ================= -->
+
+    <div class="card">
+
+        <h2>💻 Technical Profile</h2>
+
+        <table>
+
+            <tr>
+                <td>Full Stack Projects</td>
+                <td>{{ student_data.fullstack_projects }}</td>
+            </tr>
+
+            <tr>
+                <td>AI / ML Projects</td>
+                <td>{{ student_data.aiml_projects }}</td>
+            </tr>
+
+            <tr>
+                <td>Android Projects</td>
+                <td>{{ student_data.android_projects }}</td>
+            </tr>
+
+            <tr>
+                <td>UI / UX Projects</td>
+                <td>{{ student_data.uiux_projects }}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- ================= CAREER RECOMMENDATION ================= -->
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+
+            <h2>🎯 Recommended Career</h2>
+
+            <div class="career-card">
+
+                <div class="career-icon">
+                    🚀
+                </div>
+
+                <h3 class="career-name">
+                    {{ career_result.career }}
+                </h3>
+
+                <p class="career-description">
+                    Based on your academic performance,
+                    technical skills and project experience,
+                    this career path best matches your profile.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>⭐ Career Match Score</h2>
+
+            <div class="score-container">
+
+                <div class="career-score-circle">
+                    {{ career_result.career_score }}
+                </div>
+
+                <p class="score-text">
+                    Overall Career Compatibility
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= COMPANIES ================= -->
+
+    <div class="card">
+
+        <h2>🏢 Recommended Companies</h2>
+
+        <div class="company-grid">
+
+            {% for company in career_result.companies %}
+
+            <div class="company-card">
+                🏢 {{ company }}
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= SKILLS ================= -->
+
+    <div class="card">
+
+        <h2>📚 Skills You Should Learn</h2>
+
+        <div class="skills-grid">
+
+            {% for skill in career_result.skills %}
+
+            <div class="skill-card">
+                {{ skill }}
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= LEARNING ROADMAP ================= -->
+
+    <div class="card roadmap">
+
+        <h2>🗺 6-Month Learning Roadmap</h2>
+
+        <div class="roadmap-container">
+
+            {% for month, topic in career_result.roadmap.items() %}
+
+            <div class="roadmap-card">
+
+                <div class="roadmap-month">
+                    {{ month }}
+                </div>
+
+                <div class="roadmap-topic">
+                    {{ topic }}
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= AI RECOMMENDATIONS ================= -->
+
+    <div class="card recommendation">
+
+        <h2>💡 AI Recommendations</h2>
+
+        {% if prediction_class == "success" %}
+
+        <ul>
+
+            <li>✅ Continue building advanced real-world projects.</li>
+            <li>✅ Practice Data Structures & Algorithms daily.</li>
+            <li>✅ Prepare for HR and Technical Interviews.</li>
+            <li>✅ Keep your Resume and LinkedIn profile updated.</li>
+            <li>✅ Participate in Coding Contests and Hackathons.</li>
+            <li>✅ Apply confidently to Product-Based Companies.</li>
+
+        </ul>
+
+        {% else %}
+
+        <ul>
+
+            <li>📚 Improve your CGPA if possible.</li>
+            <li>💻 Build more Full Stack or AI/ML projects.</li>
+            <li>🧠 Practice Data Structures & Algorithms daily.</li>
+            <li>🎯 Improve Aptitude and Problem Solving Skills.</li>
+            <li>🗣 Improve Communication and Interview Skills.</li>
+            <li>📜 Complete more Certifications.</li>
+
+        </ul>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= PROFILE ANALYTICS ================= -->
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+
+            <h2>📊 Academic Overview</h2>
+
+            <table>
+
+                <tr>
+                    <td>CGPA</td>
+                    <td>{{ student_data.cgpa }}</td>
+                </tr>
+
+                <tr>
+                    <td>Placement Marks</td>
+                    <td>{{ student_data.marks }}</td>
+                </tr>
+
+                <tr>
+                    <td>DSA Rating</td>
+                    <td>{{ student_data.dsa_rating }}</td>
+                </tr>
+
+                <tr>
+                    <td>Communication</td>
+                    <td>{{ student_data.communication }}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🏆 Project Portfolio</h2>
+
+            <table>
+
+                <tr>
+                    <td>Full Stack</td>
+                    <td>{{ student_data.fullstack_projects }}</td>
+                </tr>
+
+                <tr>
+                    <td>AI / ML</td>
+                    <td>{{ student_data.aiml_projects }}</td>
+                </tr>
+
+                <tr>
+                    <td>Android</td>
+                    <td>{{ student_data.android_projects }}</td>
+                </tr>
+
+                <tr>
+                    <td>UI / UX</td>
+                    <td>{{ student_data.uiux_projects }}</td>
+                </tr>
+
+                <tr>
+                    <td>Certifications</td>
+                    <td>{{ student_data.certifications }}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="dashboard-buttons">
+
+        <a href="/" class="back-btn">
+            🔄 Predict Another Student
+        </a>
+
+        <button class="download-btn">
+            📄 Download Report
+        </button>
+
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="footer">
+
+        <p>© 2026 Student Placement Prediction System</p>
+
+        <p>
+            Developed using Flask • Machine Learning • Python • HTML • CSS
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

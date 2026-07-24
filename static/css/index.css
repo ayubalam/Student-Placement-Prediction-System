@@ -1,0 +1,247 @@
+/* ===========================
+   GLOBAL STYLES
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    padding:40px 20px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    background:linear-gradient(-45deg,#4facfe,#00f2fe,#43e97b,#38f9d7);
+    background-size:400% 400%;
+    animation:bgAnimation 15s ease infinite;
+}
+
+@keyframes bgAnimation{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+/* ===========================
+   CONTAINER
+=========================== */
+
+.container{
+
+    width:100%;
+    max-width:900px;
+
+}
+
+.left-panel{
+
+    background:rgba(255,255,255,.96);
+
+    border-radius:22px;
+
+    padding:40px;
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+h1{
+
+    text-align:center;
+
+    color:#1f3c88;
+
+    font-size:36px;
+
+    margin-bottom:10px;
+
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:35px;
+
+    line-height:1.7;
+
+}
+
+/* ===========================
+   SECTION
+=========================== */
+
+.section-heading{
+
+    color:#1565c0;
+
+    font-size:24px;
+
+    margin:30px 0 20px;
+
+}
+
+.divider{
+
+    margin:35px 0;
+
+    border:none;
+
+    height:2px;
+
+    background:#e0e0e0;
+
+}
+
+/* ===========================
+   FORM
+=========================== */
+
+label{
+
+    display:block;
+
+    margin:18px 0 8px;
+
+    font-weight:600;
+
+    color:#34495e;
+
+}
+
+input,
+select{
+
+    width:100%;
+
+    padding:14px 15px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+input:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:#2196f3;
+
+    box-shadow:0 0 12px rgba(33,150,243,.30);
+
+}
+
+input:hover,
+select:hover{
+
+    border-color:#42a5f5;
+
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+button{
+
+    width:100%;
+
+    margin-top:35px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(90deg,#1565c0,#0d47a1);
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 25px rgba(21,101,192,.35);
+
+}
+
+/* ===========================
+   INPUT GROUP
+=========================== */
+
+input[type=number]{
+
+    appearance:textfield;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+.left-panel{
+
+    padding:25px;
+
+}
+
+h1{
+
+    font-size:28px;
+
+}
+
+.section-heading{
+
+    font-size:20px;
+
+}
+
+button{
+
+    font-size:16px;
+
+}
+
+}

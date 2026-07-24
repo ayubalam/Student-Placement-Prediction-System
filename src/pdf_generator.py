@@ -1,0 +1,302 @@
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Table,
+    TableStyle,
+    Paragraph,
+    Spacer
+)
+from reportlab.lib.styles import getSampleStyleSheet
+
+
+def generate_pdf(
+        filename,
+        student_data,
+        prediction,
+        probability,
+        career_result):
+
+    doc = SimpleDocTemplate(filename, pagesize=A4)
+
+    styles = getSampleStyleSheet()
+
+    elements = []
+
+    title = Paragraph(
+        "<b><font size=20>Student Placement Prediction Report</font></b>",
+        styles["Title"]
+    )
+
+    elements.append(title)
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Student Details
+    # -----------------------------
+
+    elements.append(
+        Paragraph(
+            "<b>Student Details</b>",
+            styles["Heading2"]
+        )
+    )
+
+    student_table = [
+
+        ["Field", "Value"],
+
+        ["CGPA", student_data["cgpa"]],
+
+        ["Placement Exam Marks", student_data["marks"]],
+
+        ["Internship", student_data["internship"]],
+
+        ["College Tier", student_data["tier"]],
+
+        ["Full Stack Projects",
+         student_data["fullstack_projects"]],
+
+        ["AI / ML Projects",
+         student_data["aiml_projects"]],
+
+        ["Android Projects",
+         student_data["android_projects"]],
+
+        ["UI / UX Projects",
+         student_data["uiux_projects"]],
+
+        ["DSA Rating",
+         student_data["dsa_rating"]],
+
+        ["Certifications",
+         student_data["certifications"]],
+
+        ["Communication",
+         student_data["communication"]]
+
+    ]
+
+    table = Table(student_table)
+
+    table.setStyle(
+
+        TableStyle([
+
+            ("BACKGROUND", (0, 0), (-1, 0), colors.darkblue),
+
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+
+            ("GRID", (0, 0), (-1, -1), 1, colors.black),
+
+            ("BACKGROUND", (0, 1), (-1, -1), colors.beige),
+
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+
+            ("BOTTOMPADDING", (0, 0), (-1, 0), 10),
+
+            ("ALIGN", (0, 0), (-1, -1), "CENTER")
+
+        ])
+
+    )
+
+    elements.append(table)
+
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Prediction
+    # -----------------------------
+
+    elements.append(
+
+        Paragraph(
+
+            "<b>Placement Prediction</b>",
+
+            styles["Heading2"]
+
+        )
+
+    )
+
+    elements.append(
+
+        Paragraph(
+
+            prediction,
+
+            styles["BodyText"]
+
+        )
+
+    )
+
+    elements.append(
+
+        Paragraph(
+
+            f"<b>Placement Probability : {probability}%</b>",
+
+            styles["BodyText"]
+
+        )
+
+    )
+
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Career
+    # -----------------------------
+
+    elements.append(
+
+        Paragraph(
+
+            "<b>Recommended Career</b>",
+
+            styles["Heading2"]
+
+        )
+
+    )
+
+    elements.append(
+
+        Paragraph(
+
+            career_result["career"],
+
+            styles["BodyText"]
+
+        )
+
+    )
+
+    elements.append(
+
+        Paragraph(
+
+            f"Career Match Score : {career_result['career_score']}",
+
+            styles["BodyText"]
+
+        )
+
+    )
+
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Companies
+    # -----------------------------
+
+    elements.append(
+
+        Paragraph(
+
+            "<b>Recommended Companies</b>",
+
+            styles["Heading2"]
+
+        )
+
+    )
+
+    for company in career_result["companies"]:
+
+        elements.append(
+
+            Paragraph(
+
+                "• " + company,
+
+                styles["BodyText"]
+
+            )
+
+        )
+
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Skills
+    # -----------------------------
+
+    elements.append(
+
+        Paragraph(
+
+            "<b>Skills To Learn</b>",
+
+            styles["Heading2"]
+
+        )
+
+    )
+
+    for skill in career_result["skills"]:
+
+        elements.append(
+
+            Paragraph(
+
+                "• " + skill,
+
+                styles["BodyText"]
+
+            )
+
+        )
+
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Roadmap
+    # -----------------------------
+
+    elements.append(
+
+        Paragraph(
+
+            "<b>Learning Roadmap</b>",
+
+            styles["Heading2"]
+
+        )
+
+    )
+
+    for month, topic in career_result["roadmap"].items():
+
+        elements.append(
+
+            Paragraph(
+
+                f"<b>{month}</b> : {topic}",
+
+                styles["BodyText"]
+
+            )
+
+        )
+
+    elements.append(Spacer(1, 20))
+
+    # -----------------------------
+    # Footer
+    # -----------------------------
+
+    footer = Paragraph(
+
+        "<b>Generated by Student Placement Prediction System</b>",
+
+        styles["Heading3"]
+
+    )
+
+    elements.append(footer)
+
+    doc.build(elements)

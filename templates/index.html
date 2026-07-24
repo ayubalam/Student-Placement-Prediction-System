@@ -2,86 +2,145 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Student Placement Prediction System</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>Student Placement Prediction System</h1>
+    <div class="left-panel full-width">
 
-        <form action="/" method="POST">
+        <h1>🎓 Student Placement Prediction System</h1>
 
-            <label for="cgpa">CGPA</label>
+        <p class="subtitle">
+            Predict whether a student is likely to be placed using Machine Learning and receive AI-powered career recommendations.
+        </p>
+
+        <form action="/predict" method="POST">
+
+            <h2 class="section-heading">
+                📘 Academic Details
+            </h2>
+
+            <label>🎓 CGPA</label>
 
             <input
                 type="number"
-                id="cgpa"
                 name="cgpa"
-                step="0.01"
                 min="0"
                 max="10"
+                step="0.01"
                 placeholder="Enter CGPA"
                 required>
 
-            <label for="marks">Placement Exam Marks</label>
+            <label>📝 Placement Exam Marks</label>
 
             <input
                 type="number"
-                id="marks"
                 name="marks"
                 min="0"
                 max="100"
-                placeholder="Enter Marks"
+                placeholder="Enter Placement Exam Marks"
                 required>
 
-            <label for="internship">Internship Experience</label>
+            <label>💼 Internship Experience</label>
 
-            <select id="internship" name="internship" required>
+            <select name="internship" required>
                 <option value="1">Yes</option>
                 <option value="0">No</option>
             </select>
 
-            <label for="tier">College Tier</label>
+            <label>🏫 College Tier</label>
 
-            <select id="tier" name="tier" required>
+            <select name="tier" required>
                 <option value="Tier 1">Tier 1</option>
                 <option value="Tier 2">Tier 2</option>
                 <option value="Tier 3">Tier 3</option>
             </select>
 
+            <hr class="divider">
+
+            <h2 class="section-heading">
+                💻 Technical Profile
+            </h2>
+
+            <label>🌐 Full Stack Projects</label>
+
+            <input
+                type="number"
+                name="fullstack_projects"
+                min="0"
+                value="0">
+
+            <label>🤖 AI / ML Projects</label>
+
+            <input
+                type="number"
+                name="aiml_projects"
+                min="0"
+                value="0">
+
+            <label>📱 Android Projects</label>
+
+            <input
+                type="number"
+                name="android_projects"
+                min="0"
+                value="0">
+
+            <label>🎨 UI / UX Projects</label>
+
+            <input
+                type="number"
+                name="uiux_projects"
+                min="0"
+                value="0">
+
+            <label>🧠 DSA Rating</label>
+
+            <input
+                type="number"
+                name="dsa_rating"
+                min="0"
+                placeholder="Example: 1600"
+                required>
+
+            <label>📜 Certifications</label>
+
+            <input
+                type="number"
+                name="certifications"
+                min="0"
+                value="0">
+
+            <label>🗣 Communication Skill</label>
+
+            <select name="communication" required>
+
+                <option>Excellent</option>
+                <option>Good</option>
+                <option>Average</option>
+                <option>Poor</option>
+
+            </select>
+
             <button type="submit">
-                Predict Placement
+                🚀 Predict Placement
             </button>
 
         </form>
 
-        {% if prediction %}
-
-<div class="result">
-
-    <h2>Prediction Result</h2>
-
-    <div class="{{ prediction_class }}">
-
-        {% if prediction == "Placed" %}
-            ✅ {{ prediction }}
-        {% else %}
-            ❌ {{ prediction }}
-        {% endif %}
-
     </div>
 
 </div>
-
-{% endif %}
-
-    </div>
 
 </body>
 
