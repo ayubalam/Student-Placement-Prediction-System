@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Placement Prediction System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+
+<nav>
+
+    <div class="logo">
+
+        🎓 PlacementAI
+
+    </div>
+
+    <ul>
+
+        <li><a href="#home">Home</a></li>
+
+        <li><a href="#about">About</a></li>
+
+        <li><a href="#features">Features</a></li>
+
+        <li><a href="#technology">Technology</a></li>
+
+        <li><a href="#developer">Developer</a></li>
+
+        <li>
+
+            <a href="/login"
+               class="login-btn">
+
+                Login
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</nav>
+
+<!-- ===================== HERO ===================== -->
+
+<section
+    class="hero"
+    id="home">
+
+    <div class="hero-left">
+
+        <h1>
+
+            Student Placement Prediction System
+
+        </h1>
+
+        <p>
+
+            An AI-powered platform that predicts placement chances,
+            recommends the best career path,
+            suggests companies,
+            and provides a personalized learning roadmap.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/login"
+               class="btn-primary">
+
+                Get Started
+
+            </a>
+
+            <a href="#about"
+               class="btn-secondary">
+
+                Learn More
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <img
+            src="{{ url_for('static', filename='images/hero.png') }}"
+            alt="AI Illustration">
+
+    </div>
+
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+
+<section
+    class="about"
+    id="about">
+
+    <div class="section-title">
+
+        <h2>📖 About The Project</h2>
+
+        <p>
+            Empowering students with Artificial Intelligence to improve placement preparation and career planning.
+        </p>
+
+    </div>
+
+    <div class="about-container">
+
+        <div class="about-card">
+
+            <h3>🎯 Project Objective</h3>
+
+            <p>
+
+                The Student Placement Prediction System uses Machine Learning
+                to estimate a student's placement probability based on
+                academic performance, technical skills, internship experience,
+                certifications, projects, and communication skills.
+
+            </p>
+
+        </div>
+
+        <div class="about-card">
+
+            <h3>🤖 AI Powered Recommendation</h3>
+
+            <p>
+
+                Apart from predicting placement, the system intelligently
+                recommends the most suitable career domain, top companies,
+                skills to learn, and a personalized roadmap for career growth.
+
+            </p>
+
+        </div>
+
+        <div class="about-card">
+
+            <h3>🚀 Why This Project?</h3>
+
+            <p>
+
+                Students often don't know which domain best matches their
+                profile. This platform provides data-driven insights to help
+                them prepare efficiently for placements.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================== FEATURES ===================== -->
+
+<section
+    class="features"
+    id="features">
+
+    <div class="section-title">
+
+        <h2>✨ Key Features</h2>
+
+        <p>
+
+            Everything a student needs for placement preparation in one platform.
+
+        </p>
+
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <div class="icon">🎯</div>
+
+            <h3>Placement Prediction</h3>
+
+            <p>
+
+                Predict placement chances using Machine Learning.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon">🤖</div>
+
+            <h3>AI Career Recommendation</h3>
+
+            <p>
+
+                Get career suggestions based on projects and technical profile.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon">📈</div>
+
+            <h3>Probability Analysis</h3>
+
+            <p>
+
+                Visual placement probability with interactive dashboard.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon">📄</div>
+
+            <h3>PDF Report</h3>
+
+            <p>
+
+                Download a complete placement report instantly.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon">🏢</div>
+
+            <h3>Company Suggestions</h3>
+
+            <p>
+
+                Explore companies matching your skills and career path.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon">📚</div>
+
+            <h3>Learning Roadmap</h3>
+
+            <p>
+
+                Follow a personalized roadmap to improve placement readiness.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================== PROJECT STATS ===================== -->
+
+<section class="statistics">
+
+    <div class="section-title">
+
+        <h2>📊 Platform Highlights</h2>
+
+        <p>
+
+            A complete AI-powered placement assistance platform.
+
+        </p>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <h2>95%</h2>
+
+            <p>Prediction Accuracy</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>8+</h2>
+
+            <p>AI Features</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>6</h2>
+
+            <p>Career Domains</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2>100+</h2>
+
+            <p>Company Suggestions</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+
+<section
+    class="workflow"
+    id="workflow">
+
+    <div class="section-title">
+
+        <h2>⚙️ How It Works</h2>
+
+        <p>
+
+            Follow these simple steps to get your AI-powered placement analysis.
+
+        </p>
+
+    </div>
+
+    <div class="workflow-grid">
+
+        <div class="step-card">
+
+            <div class="step-number">1</div>
+
+            <h3>Enter Academic Details</h3>
+
+            <p>
+
+                Provide your CGPA, Placement Exam Marks,
+                Internship Experience and College Tier.
+
+            </p>
+
+        </div>
+
+        <div class="step-card">
+
+            <div class="step-number">2</div>
+
+            <h3>Enter Technical Profile</h3>
+
+            <p>
+
+                Add your projects, certifications,
+                DSA rating and communication skills.
+
+            </p>
+
+        </div>
+
+        <div class="step-card">
+
+            <div class="step-number">3</div>
+
+            <h3>Machine Learning Prediction</h3>
+
+            <p>
+
+                Our trained AI model predicts your
+                placement probability.
+
+            </p>
+
+        </div>
+
+        <div class="step-card">
+
+            <div class="step-number">4</div>
+
+            <h3>Career Recommendation</h3>
+
+            <p>
+
+                Get personalized career suggestions,
+                companies and learning roadmap.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================== TECHNOLOGY ===================== -->
+
+<section
+    class="technology"
+    id="technology">
+
+    <div class="section-title">
+
+        <h2>💻 Technology Stack</h2>
+
+        <p>
+
+            Modern technologies used to build the project.
+
+        </p>
+
+    </div>
+
+    <div class="tech-grid">
+
+        <div class="tech-card">🐍 Python</div>
+
+        <div class="tech-card">🔥 Flask</div>
+
+        <div class="tech-card">🤖 Machine Learning</div>
+
+        <div class="tech-card">📊 Scikit-Learn</div>
+
+        <div class="tech-card">🐼 Pandas</div>
+
+        <div class="tech-card">📈 NumPy</div>
+
+        <div class="tech-card">🌐 HTML5</div>
+
+        <div class="tech-card">🎨 CSS3</div>
+
+        <div class="tech-card">⚡ JavaScript</div>
+
+        <div class="tech-card">📊 Chart.js</div>
+
+        <div class="tech-card">🗄 SQLite</div>
+
+        <div class="tech-card">📄 ReportLab PDF</div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================== DEVELOPER ===================== -->
+
+<section
+    class="developer"
+    id="developer">
+
+    <div class="section-title">
+
+        <h2>👨‍💻 Developer</h2>
+
+        <p>
+
+            Meet the developer behind this project.
+
+        </p>
+
+    </div>
+
+    <div class="developer-card">
+
+        <div class="developer-image">
+
+            👨‍💻
+
+        </div>
+
+        <div class="developer-info">
+
+            <h2>Ayub Alam</h2>
+
+            <h4>Computer Science Engineering Student</h4>
+
+            <p>
+
+                Passionate Full Stack Developer and Machine Learning Enthusiast.
+                This project combines Artificial Intelligence,
+                Data Science and Web Development to help students
+                improve their placement preparation.
+
+            </p>
+
+            <div class="developer-skills">
+
+                <span>Python</span>
+
+                <span>Flask</span>
+
+                <span>Machine Learning</span>
+
+                <span>HTML</span>
+
+                <span>CSS</span>
+
+                <span>JavaScript</span>
+
+                <span>Git</span>
+
+                <span>GitHub</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================== CONTACT ===================== -->
+
+<section
+    class="contact"
+    id="contact">
+
+    <div class="section-title">
+
+        <h2>📞 Contact</h2>
+
+        <p>
+
+            Feel free to connect.
+
+        </p>
+
+    </div>
+
+    <div class="contact-grid">
+
+        <div class="contact-card">
+
+            📧
+
+            <h3>Email</h3>
+
+            <p>
+
+                your-email@example.com
+
+            </p>
+
+        </div>
+
+        <div class="contact-card">
+
+            💻
+
+            <h3>GitHub</h3>
+
+            <p>
+
+                github.com/yourusername
+
+            </p>
+
+        </div>
+
+        <div class="contact-card">
+
+            🔗
+
+            <h3>LinkedIn</h3>
+
+            <p>
+
+                linkedin.com/in/yourprofile
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================== FOOTER ===================== -->
+
+<footer>
+
+    <h2>
+
+        Student Placement Prediction System
+
+    </h2>
+
+    <p>
+
+        AI Powered Career Recommendation & Placement Analysis Platform
+
+    </p>
+
+    <hr>
+
+    <p>
+
+        © 2026 Ayub Alam | All Rights Reserved
+
+    </p>
+
+</footer>
+
+</body>
+
+</html>

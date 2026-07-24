@@ -392,3 +392,31 @@ h1{
 }
 
 }
+
+.download-btn{
+
+    display:inline-block;
+
+    padding:15px 28px;
+
+    background:#2e7d32;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.download-btn:hover{
+
+    background:#1b5e20;
+
+}
