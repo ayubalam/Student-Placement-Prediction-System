@@ -21,16 +21,14 @@ from werkzeug.security import (
 from database import (
     create_table,
     register_student,
-    get_student_by_email
+    get_student_by_email,
+    save_prediction,
+    get_student_predictions
 )
 
 from src.career_recommendation import get_career_recommendation
 from src.pdf_generator import generate_pdf
 
-
-# ==========================================
-# Flask Configuration
-# ==========================================
 
 app = Flask(__name__)
 
@@ -39,17 +37,10 @@ app.secret_key = "student_placement_prediction_secret"
 create_table()
 
 
-# ==========================================
-# Load ML Model
-# ==========================================
-
 model = joblib.load("models/placement_model.pkl")
+
 scaler = joblib.load("models/scaler.pkl")
 
-
-# ==========================================
-# Home Page
-# ==========================================
 
 @app.route("/")
 def home():
@@ -57,17 +48,15 @@ def home():
     return render_template("home.html")
 
 
-# ==========================================
-# Login
-# ==========================================
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
     if request.method == "GET":
+
         return render_template("login.html")
 
     email = request.form["email"]
+
     password = request.form["password"]
 
     student = get_student_by_email(email)
@@ -90,10 +79,6 @@ def login():
 
     return redirect(url_for("prediction"))
 
-
-# ==========================================
-# Register
-# ==========================================
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -119,11 +104,9 @@ def register():
     hashed_password = generate_password_hash(password)
 
     success = register_student(
-
         full_name,
         email,
         hashed_password
-
     )
 
     if not success:
@@ -137,10 +120,6 @@ def register():
     return redirect(url_for("login"))
 
 
-# ==========================================
-# Prediction Form
-# ==========================================
-
 @app.route("/prediction")
 def prediction():
 
@@ -149,16 +128,10 @@ def prediction():
         return redirect(url_for("login"))
 
     return render_template(
-
         "index.html",
-
         student_name=session.get("student_name")
-
     )
-    
-    # ==========================================
-# Predict Placement
-# ==========================================
+
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -167,9 +140,6 @@ def predict():
 
         return redirect(url_for("login"))
 
-    # ==========================================
-    # Academic Details
-    # ==========================================
 
     cgpa = float(request.form["cgpa"])
 
@@ -179,44 +149,53 @@ def predict():
 
     tier = request.form["tier"]
 
-    # ==========================================
-    # Technical Profile
-    # ==========================================
 
-    fullstack_projects = int(request.form["fullstack_projects"])
+    fullstack_projects = int(
+        request.form["fullstack_projects"]
+    )
 
-    aiml_projects = int(request.form["aiml_projects"])
+    aiml_projects = int(
+        request.form["aiml_projects"]
+    )
 
-    android_projects = int(request.form["android_projects"])
+    android_projects = int(
+        request.form["android_projects"]
+    )
 
-    uiux_projects = int(request.form["uiux_projects"])
+    uiux_projects = int(
+        request.form["uiux_projects"]
+    )
 
-    dsa_rating = int(request.form["dsa_rating"])
+    dsa_rating = int(
+        request.form["dsa_rating"]
+    )
 
-    certifications = int(request.form["certifications"])
+    certifications = int(
+        request.form["certifications"]
+    )
 
     communication = request.form["communication"]
 
-    # ==========================================
-    # One Hot Encoding
-    # ==========================================
 
     tier1 = 0
+
     tier2 = 0
+
     tier3 = 0
 
+
     if tier == "Tier 1":
+
         tier1 = 1
 
     elif tier == "Tier 2":
+
         tier2 = 1
 
     else:
+
         tier3 = 1
 
-    # ==========================================
-    # ML Prediction
-    # ==========================================
 
     student = pd.DataFrame({
 
@@ -234,37 +213,44 @@ def predict():
 
     })
 
+
     student_scaled = scaler.transform(student)
 
-    result = model.predict(student_scaled)
+
+    result = model.predict(
+        student_scaled
+    )
+
 
     probability = round(
 
-        model.predict_proba(student_scaled)[0][1] * 100,
+        model.predict_proba(
+            student_scaled
+        )[0][1] * 100,
 
         2
 
     )
 
-    # ==========================================
-    # Prediction Result
-    # ==========================================
 
     if result[0] == 1:
 
-        prediction = "🎉 Congratulations! You are likely to be Placed."
+        prediction = (
+            "🎉 Congratulations! "
+            "You are likely to be Placed."
+        )
 
         prediction_class = "success"
 
     else:
 
-        prediction = "😔 Better Luck Next Time! You are currently predicted as Not Placed."
+        prediction = (
+            "😔 Better Luck Next Time! "
+            "You are currently predicted as Not Placed."
+        )
 
         prediction_class = "danger"
 
-    # ==========================================
-    # Career Recommendation
-    # ==========================================
 
     career_result = get_career_recommendation(
 
@@ -286,9 +272,6 @@ def predict():
 
     )
 
-    # ==========================================
-    # Student Summary
-    # ==========================================
 
     student_data = {
 
@@ -296,29 +279,69 @@ def predict():
 
         "marks": marks,
 
-        "internship": "Yes" if internship else "No",
+        "internship":
+            "Yes" if internship else "No",
 
         "tier": tier,
 
-        "fullstack_projects": fullstack_projects,
+        "fullstack_projects":
+            fullstack_projects,
 
-        "aiml_projects": aiml_projects,
+        "aiml_projects":
+            aiml_projects,
 
-        "android_projects": android_projects,
+        "android_projects":
+            android_projects,
 
-        "uiux_projects": uiux_projects,
+        "uiux_projects":
+            uiux_projects,
 
-        "dsa_rating": dsa_rating,
+        "dsa_rating":
+            dsa_rating,
 
-        "certifications": certifications,
+        "certifications":
+            certifications,
 
-        "communication": communication
+        "communication":
+            communication
 
     }
 
-    # ==========================================
-    # Store Session
-    # ==========================================
+
+    save_prediction(
+
+        session["student_id"],
+
+        cgpa,
+
+        marks,
+
+        internship,
+
+        tier,
+
+        fullstack_projects,
+
+        aiml_projects,
+
+        android_projects,
+
+        uiux_projects,
+
+        dsa_rating,
+
+        certifications,
+
+        communication,
+
+        prediction,
+
+        probability,
+
+        career_result
+
+    )
+
 
     session["prediction"] = prediction
 
@@ -330,13 +353,14 @@ def predict():
 
     session["career_result"] = career_result
 
-    # ==========================================
-    # Open Dashboard
-    # ==========================================
 
     return render_template(
 
         "dashboard.html",
+
+        student_name=session.get(
+            "student_name"
+        ),
 
         prediction=prediction,
 
@@ -349,28 +373,57 @@ def predict():
         career_result=career_result
 
     )
-    # ==========================================
-# Download PDF Report
-# ==========================================
+
+
+@app.route("/history")
+def history():
+
+    if "student_id" not in session:
+
+        return redirect(url_for("login"))
+
+    predictions = get_student_predictions(
+        session["student_id"]
+    )
+
+    return render_template(
+        "history.html",
+        student_name=session.get("student_name"),
+        predictions=predictions
+    )
+
 
 @app.route("/download-report")
 def download_report():
 
     if "student_id" not in session:
+
         return redirect(url_for("login"))
 
+
     prediction = session.get("prediction")
+
     probability = session.get("probability")
+
     student_data = session.get("student_data")
+
     career_result = session.get("career_result")
+
 
     if student_data is None:
 
         flash("Please predict first.")
 
-        return redirect(url_for("prediction"))
+        return redirect(
+            url_for("prediction")
+        )
 
-    os.makedirs("reports", exist_ok=True)
+
+    os.makedirs(
+        "reports",
+        exist_ok=True
+    )
+
 
     pdf_path = os.path.join(
 
@@ -379,6 +432,7 @@ def download_report():
         "placement_report.pdf"
 
     )
+
 
     generate_pdf(
 
@@ -394,6 +448,7 @@ def download_report():
 
     )
 
+
     return send_file(
 
         pdf_path,
@@ -403,10 +458,6 @@ def download_report():
     )
 
 
-# ==========================================
-# Logout
-# ==========================================
-
 @app.route("/logout")
 def logout():
 
@@ -414,12 +465,10 @@ def logout():
 
     flash("Logged out successfully.")
 
-    return redirect(url_for("login"))
+    return redirect(
+        url_for("login")
+    )
 
-
-# ==========================================
-# Run Flask App
-# ==========================================
 
 if __name__ == "__main__":
 
