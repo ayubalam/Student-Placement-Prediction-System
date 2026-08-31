@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Placement Prediction System - Login</title>
+    <title>Student Login</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,68 +14,86 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-blue-500 via-cyan-400 to-emerald-400 flex items-center justify-center p-5">
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-cyan-400 to-emerald-400 p-5">
 
-    <div class="w-full max-w-6xl bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/30">
+    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-        <div class="grid lg:grid-cols-2 min-h-[650px]">
+        <div class="grid md:grid-cols-2">
 
-            <div class="hidden lg:flex items-center justify-center p-12 bg-white/10">
+            <div class="hidden md:flex items-center justify-center bg-gradient-to-br from-blue-600 to-cyan-500 p-10">
 
-                <div class="text-center">
+                <div class="text-center text-white">
 
-                    <div class="text-8xl mb-8">
+                    <div class="text-7xl mb-6">
                         🎓
                     </div>
 
-                    <h2 class="text-4xl font-bold text-white mb-5">
+                    <h2 class="text-3xl font-bold mb-4">
                         Student Placement
                     </h2>
 
-                    <p class="text-white/90 text-lg leading-8 max-w-md">
-                        Predict your placement chances and discover career opportunities based on your academic and technical profile.
+                    <p class="text-blue-50 leading-7">
+                        Predict your placement chances and discover the career path that best matches your skills.
                     </p>
+
+                    <div class="mt-8 space-y-3 text-left">
+
+                        <div class="bg-white/10 rounded-xl px-4 py-3">
+                            🤖 Machine Learning Prediction
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl px-4 py-3">
+                            🎯 Career Recommendations
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl px-4 py-3">
+                            📊 Personalised Dashboard
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
 
-            <div class="flex items-center justify-center bg-white p-8 sm:p-12 lg:p-16">
 
-                <div class="w-full max-w-md">
+            <div class="p-7 sm:p-10 lg:p-12">
 
-                    <div class="mb-8">
+                <div class="max-w-md mx-auto">
 
-                        <h1 class="text-4xl sm:text-5xl font-bold text-blue-700 mb-3">
+                    <div class="text-center mb-8">
+
+                        <div class="text-5xl mb-4">
+                            👋
+                        </div>
+
+                        <h1 class="text-3xl sm:text-4xl font-bold text-blue-800">
                             Welcome Back
                         </h1>
 
-                        <p class="text-gray-500 text-base leading-7">
-                            Login to continue to the Student Placement Prediction System.
+                        <p class="text-gray-500 mt-3">
+                            Login to continue to your placement dashboard.
                         </p>
 
                     </div>
+
 
                     {% with messages = get_flashed_messages() %}
 
                         {% if messages %}
 
-                            <div class="space-y-3 mb-6">
+                            <div class="space-y-2 mb-5">
 
                                 {% for message in messages %}
 
-                                    <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-xl text-sm font-medium text-center">
+                                    <div class="bg-red-50 border border-red-200 text-red-600 rounded-xl px-4 py-3 text-sm font-medium text-center">
+
                                         {{ message }}
+
                                     </div>
 
                                 {% endfor %}
@@ -86,43 +104,44 @@
 
                     {% endwith %}
 
+
                     <form action="{{ url_for('login') }}" method="POST" class="space-y-5">
 
                         <div>
 
-                            <label for="email" class="block text-gray-700 font-semibold mb-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
                                 Email Address
                             </label>
 
                             <input
-                                id="email"
                                 type="email"
                                 name="email"
                                 placeholder="Enter your email"
                                 required
-                                class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+                                class="w-full px-4 py-3.5 border border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
 
                         </div>
 
+
                         <div>
 
-                            <label for="password" class="block text-gray-700 font-semibold mb-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
                                 Password
                             </label>
 
                             <input
-                                id="password"
                                 type="password"
                                 name="password"
                                 placeholder="Enter your password"
                                 required
-                                class="w-full px-5 py-3.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100">
+                                class="w-full px-4 py-3.5 border border-gray-200 rounded-xl outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition">
 
                         </div>
 
+
                         <button
                             type="submit"
-                            class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold text-lg shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+                            class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition">
 
                             🔐 Login
 
@@ -130,27 +149,27 @@
 
                     </form>
 
+
                     <div class="flex items-center gap-4 my-7">
 
-                        <div class="h-px bg-gray-200 flex-1"></div>
+                        <div class="flex-1 h-px bg-gray-200"></div>
 
-                        <span class="text-gray-400 text-sm">
-                            OR
+                        <span class="text-sm text-gray-400">
+                            New Student?
                         </span>
 
-                        <div class="h-px bg-gray-200 flex-1"></div>
+                        <div class="flex-1 h-px bg-gray-200"></div>
 
                     </div>
 
-                    <div class="text-center text-gray-500">
 
-                        Don't have an account?
+                    <div class="text-center">
 
                         <a
                             href="{{ url_for('register') }}"
-                            class="text-blue-600 font-semibold hover:text-blue-800 hover:underline transition">
+                            class="inline-block w-full py-3.5 rounded-xl border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-600 hover:text-white transition">
 
-                            Register Here
+                            ➕ Create New Account
 
                         </a>
 
