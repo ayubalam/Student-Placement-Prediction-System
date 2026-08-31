@@ -2,398 +2,745 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Placement Dashboard</title>
 
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <title>Placement Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+
 </head>
 
-<body>
+<body class="min-h-screen bg-gradient-to-br from-blue-500 via-cyan-400 to-emerald-400 p-4 sm:p-6">
 
-<div class="dashboard-container">
+    <div class="max-w-6xl mx-auto">
 
-    <!-- ================= HEADER ================= -->
+        <!-- Navbar -->
 
-    <div class="dashboard-header">
-        <h1>🎓 Student Placement Prediction Dashboard</h1>
-        <p>AI Powered Placement Analysis & Career Recommendation System</p>
-    </div>
+        <nav class="bg-white rounded-2xl shadow-lg px-5 sm:px-7 py-4 mb-6">
 
-    <!-- ================= TOP STATISTICS ================= -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-    <div class="dashboard-grid">
+                <div class="text-blue-700 font-bold text-lg sm:text-xl">
 
-        <div class="card">
-            <h3>🟢 Placement Status</h3>
+                    🎓 Placement Predictor
 
-            <div class="{{ prediction_class }}">
-                {{ prediction }}
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>📈 Placement Probability</h3>
-
-            <div class="progress">
-                <div class="progress-bar"
-                    style="width:{{ probability }}%;">
-                    {{ probability }}%
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>🎯 Recommended Career</h3>
-
-            <div class="career-name">
-                {{ career_result.career }}
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>⭐ Career Match Score</h3>
-
-            <div class="career-score">
-                {{ career_result.career_score }}
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ================= STUDENT SUMMARY ================= -->
-
-    <div class="card summary">
-
-        <h2>👨‍🎓 Student Summary</h2>
-
-        <table>
-
-            <tr>
-                <td>CGPA</td>
-                <td>{{ student_data.cgpa }}</td>
-            </tr>
-
-            <tr>
-                <td>Placement Exam Marks</td>
-                <td>{{ student_data.marks }}</td>
-            </tr>
-
-            <tr>
-                <td>Internship</td>
-                <td>{{ student_data.internship }}</td>
-            </tr>
-
-            <tr>
-                <td>College Tier</td>
-                <td>{{ student_data.tier }}</td>
-            </tr>
-
-            <tr>
-                <td>Communication</td>
-                <td>{{ student_data.communication }}</td>
-            </tr>
-
-            <tr>
-                <td>DSA Rating</td>
-                <td>{{ student_data.dsa_rating }}</td>
-            </tr>
-
-            <tr>
-                <td>Certifications</td>
-                <td>{{ student_data.certifications }}</td>
-            </tr>
-
-        </table>
-
-    </div>
-
-    <!-- ================= TECHNICAL PROFILE ================= -->
-
-    <div class="card">
-
-        <h2>💻 Technical Profile</h2>
-
-        <table>
-
-            <tr>
-                <td>Full Stack Projects</td>
-                <td>{{ student_data.fullstack_projects }}</td>
-            </tr>
-
-            <tr>
-                <td>AI / ML Projects</td>
-                <td>{{ student_data.aiml_projects }}</td>
-            </tr>
-
-            <tr>
-                <td>Android Projects</td>
-                <td>{{ student_data.android_projects }}</td>
-            </tr>
-
-            <tr>
-                <td>UI / UX Projects</td>
-                <td>{{ student_data.uiux_projects }}</td>
-            </tr>
-
-        </table>
-
-    </div>
-
-    <!-- ================= CAREER RECOMMENDATION ================= -->
-
-    <div class="dashboard-grid">
-
-        <div class="card">
-
-            <h2>🎯 Recommended Career</h2>
-
-            <div class="career-card">
-
-                <div class="career-icon">
-                    🚀
                 </div>
 
-                <h3 class="career-name">
+                <div class="flex flex-wrap items-center justify-center sm:justify-end gap-3">
+
+                    <div class="text-gray-700 text-sm">
+
+                        👋 Welcome,
+
+                        <span class="font-bold text-blue-700">
+                            {{ student_name }}
+                        </span>
+
+                    </div>
+
+                    <a
+                        href="{{ url_for('prediction') }}"
+                        class="px-4 py-2 rounded-lg bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition">
+
+                        ➕ New Prediction
+
+                    </a>
+
+                    <a
+                        href="{{ url_for('logout') }}"
+                        class="px-4 py-2 rounded-lg bg-red-500 text-white text-sm font-semibold hover:bg-red-600 transition">
+
+                        🚪 Logout
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Header -->
+
+        <div class="bg-white rounded-3xl shadow-xl p-6 sm:p-8 mb-6 text-center">
+
+            <div class="text-5xl mb-4">
+                🎓
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl font-bold text-blue-800">
+
+                Student Placement Prediction Dashboard
+
+            </h1>
+
+            <p class="text-gray-500 mt-3">
+
+                AI Powered Placement Analysis & Career Recommendation System
+
+            </p>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+
+            <div class="bg-white rounded-2xl shadow-lg p-5">
+
+                <p class="text-sm font-semibold text-gray-500 mb-3">
+                    🟢 Placement Status
+                </p>
+
+                <div class="font-bold text-lg
+                    {% if prediction_class == 'success' %}
+                        text-emerald-600
+                    {% else %}
+                        text-red-600
+                    {% endif %}">
+
+                    {{ prediction }}
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white rounded-2xl shadow-lg p-5">
+
+                <p class="text-sm font-semibold text-gray-500 mb-3">
+                    📈 Placement Probability
+                </p>
+
+                <div class="w-full bg-gray-200 rounded-full h-8 overflow-hidden">
+
+                    <div
+                        class="h-full bg-gradient-to-r from-blue-500 to-emerald-500 flex items-center justify-center text-white text-sm font-bold transition-all duration-700"
+                        style="width: {{ probability }}%;">
+
+                        {{ probability }}%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white rounded-2xl shadow-lg p-5">
+
+                <p class="text-sm font-semibold text-gray-500 mb-3">
+                    🎯 Recommended Career
+                </p>
+
+                <div class="text-blue-700 font-bold text-xl">
+
                     {{ career_result.career }}
-                </h3>
 
-                <p class="career-description">
-                    Based on your academic performance,
-                    technical skills and project experience,
-                    this career path best matches your profile.
-                </p>
+                </div>
 
             </div>
 
-        </div>
 
-        <div class="card">
+            <div class="bg-white rounded-2xl shadow-lg p-5">
 
-            <h2>⭐ Career Match Score</h2>
+                <p class="text-sm font-semibold text-gray-500 mb-3">
+                    ⭐ Career Match Score
+                </p>
 
-            <div class="score-container">
+                <div class="text-emerald-600 font-bold text-3xl">
 
-                <div class="career-score-circle">
                     {{ career_result.career_score }}
-                </div>
 
-                <p class="score-text">
-                    Overall Career Compatibility
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- ================= COMPANIES ================= -->
-
-    <div class="card">
-
-        <h2>🏢 Recommended Companies</h2>
-
-        <div class="company-grid">
-
-            {% for company in career_result.companies %}
-
-            <div class="company-card">
-                🏢 {{ company }}
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-    <!-- ================= SKILLS ================= -->
-
-    <div class="card">
-
-        <h2>📚 Skills You Should Learn</h2>
-
-        <div class="skills-grid">
-
-            {% for skill in career_result.skills %}
-
-            <div class="skill-card">
-                {{ skill }}
-            </div>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-    <!-- ================= LEARNING ROADMAP ================= -->
-
-    <div class="card roadmap">
-
-        <h2>🗺 6-Month Learning Roadmap</h2>
-
-        <div class="roadmap-container">
-
-            {% for month, topic in career_result.roadmap.items() %}
-
-            <div class="roadmap-card">
-
-                <div class="roadmap-month">
-                    {{ month }}
-                </div>
-
-                <div class="roadmap-topic">
-                    {{ topic }}
                 </div>
 
             </div>
 
-            {% endfor %}
+        </div>
+
+
+        <!-- Student Summary -->
+
+        <div class="bg-white rounded-2xl shadow-lg p-5 sm:p-7 mb-6">
+
+            <h2 class="text-xl sm:text-2xl font-bold text-blue-800 mb-5">
+
+                👨‍🎓 Student Summary
+
+            </h2>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        CGPA
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.cgpa }}
+                    </p>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        Placement Exam Marks
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.marks }}
+                    </p>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        Internship
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.internship }}
+                    </p>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        College Tier
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.tier }}
+                    </p>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        Communication
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.communication }}
+                    </p>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        DSA Rating
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.dsa_rating }}
+                    </p>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4">
+
+                    <p class="text-sm text-gray-500">
+                        Certifications
+                    </p>
+
+                    <p class="text-xl font-bold text-blue-700">
+                        {{ student_data.certifications }}
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
 
-    <!-- ================= AI RECOMMENDATIONS ================= -->
+        <!-- Technical Profile -->
 
-    <div class="card recommendation">
+        <div class="bg-white rounded-2xl shadow-lg p-5 sm:p-7 mb-6">
 
-        <h2>💡 AI Recommendations</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-emerald-700 mb-5">
 
-        {% if prediction_class == "success" %}
+                💻 Technical Profile
 
-        <ul>
+            </h2>
 
-            <li>✅ Continue building advanced real-world projects.</li>
-            <li>✅ Practice Data Structures & Algorithms daily.</li>
-            <li>✅ Prepare for HR and Technical Interviews.</li>
-            <li>✅ Keep your Resume and LinkedIn profile updated.</li>
-            <li>✅ Participate in Coding Contests and Hackathons.</li>
-            <li>✅ Apply confidently to Product-Based Companies.</li>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-        </ul>
+                <div class="bg-emerald-50 rounded-xl p-5 text-center">
 
-        {% else %}
+                    <div class="text-3xl mb-2">
+                        🌐
+                    </div>
 
-        <ul>
+                    <p class="text-gray-500 text-sm">
+                        Full Stack Projects
+                    </p>
 
-            <li>📚 Improve your CGPA if possible.</li>
-            <li>💻 Build more Full Stack or AI/ML projects.</li>
-            <li>🧠 Practice Data Structures & Algorithms daily.</li>
-            <li>🎯 Improve Aptitude and Problem Solving Skills.</li>
-            <li>🗣 Improve Communication and Interview Skills.</li>
-            <li>📜 Complete more Certifications.</li>
+                    <p class="text-2xl font-bold text-emerald-700">
+                        {{ student_data.fullstack_projects }}
+                    </p>
 
-        </ul>
+                </div>
 
-        {% endif %}
 
-    </div>
+                <div class="bg-emerald-50 rounded-xl p-5 text-center">
 
-    <!-- ================= PROFILE ANALYTICS ================= -->
+                    <div class="text-3xl mb-2">
+                        🤖
+                    </div>
 
-    <div class="dashboard-grid">
+                    <p class="text-gray-500 text-sm">
+                        AI / ML Projects
+                    </p>
 
-        <div class="card">
+                    <p class="text-2xl font-bold text-emerald-700">
+                        {{ student_data.aiml_projects }}
+                    </p>
 
-            <h2>📊 Academic Overview</h2>
+                </div>
 
-            <table>
 
-                <tr>
-                    <td>CGPA</td>
-                    <td>{{ student_data.cgpa }}</td>
-                </tr>
+                <div class="bg-emerald-50 rounded-xl p-5 text-center">
 
-                <tr>
-                    <td>Placement Marks</td>
-                    <td>{{ student_data.marks }}</td>
-                </tr>
+                    <div class="text-3xl mb-2">
+                        📱
+                    </div>
 
-                <tr>
-                    <td>DSA Rating</td>
-                    <td>{{ student_data.dsa_rating }}</td>
-                </tr>
+                    <p class="text-gray-500 text-sm">
+                        Android Projects
+                    </p>
 
-                <tr>
-                    <td>Communication</td>
-                    <td>{{ student_data.communication }}</td>
-                </tr>
+                    <p class="text-2xl font-bold text-emerald-700">
+                        {{ student_data.android_projects }}
+                    </p>
 
-            </table>
+                </div>
 
-        </div>
 
-        <div class="card">
+                <div class="bg-emerald-50 rounded-xl p-5 text-center">
 
-            <h2>🏆 Project Portfolio</h2>
+                    <div class="text-3xl mb-2">
+                        🎨
+                    </div>
 
-            <table>
+                    <p class="text-gray-500 text-sm">
+                        UI / UX Projects
+                    </p>
 
-                <tr>
-                    <td>Full Stack</td>
-                    <td>{{ student_data.fullstack_projects }}</td>
-                </tr>
+                    <p class="text-2xl font-bold text-emerald-700">
+                        {{ student_data.uiux_projects }}
+                    </p>
 
-                <tr>
-                    <td>AI / ML</td>
-                    <td>{{ student_data.aiml_projects }}</td>
-                </tr>
+                </div>
 
-                <tr>
-                    <td>Android</td>
-                    <td>{{ student_data.android_projects }}</td>
-                </tr>
-
-                <tr>
-                    <td>UI / UX</td>
-                    <td>{{ student_data.uiux_projects }}</td>
-                </tr>
-
-                <tr>
-                    <td>Certifications</td>
-                    <td>{{ student_data.certifications }}</td>
-                </tr>
-
-            </table>
+            </div>
 
         </div>
 
+
+        <!-- Career Recommendation -->
+
+        <div class="grid lg:grid-cols-2 gap-6 mb-6">
+
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+
+                <h2 class="text-xl sm:text-2xl font-bold text-blue-800 mb-6">
+
+                    🎯 Recommended Career
+
+                </h2>
+
+                <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-7 text-center">
+
+                    <div class="text-5xl mb-4">
+                        🚀
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">
+
+                        {{ career_result.career }}
+
+                    </h3>
+
+                    <p class="text-gray-600 leading-7">
+
+                        Based on your academic performance, technical skills
+                        and project experience, this career path best matches
+                        your profile.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+
+                <h2 class="text-xl sm:text-2xl font-bold text-emerald-700 mb-6">
+
+                    ⭐ Career Match Score
+
+                </h2>
+
+                <div class="flex flex-col items-center justify-center py-5">
+
+                    <div class="w-36 h-36 rounded-full border-8 border-emerald-400 flex items-center justify-center">
+
+                        <span class="text-3xl font-bold text-emerald-600">
+
+                            {{ career_result.career_score }}
+
+                        </span>
+
+                    </div>
+
+                    <p class="text-gray-500 mt-5">
+                        Overall Career Compatibility
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Companies -->
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+
+            <h2 class="text-xl sm:text-2xl font-bold text-blue-800 mb-5">
+
+                🏢 Recommended Companies
+
+            </h2>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                {% for company in career_result.companies %}
+
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center font-semibold text-gray-700 hover:-translate-y-1 hover:shadow-md transition">
+
+                    🏢 {{ company }}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Skills -->
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+
+            <h2 class="text-xl sm:text-2xl font-bold text-purple-700 mb-5">
+
+                📚 Skills You Should Learn
+
+            </h2>
+
+            <div class="flex flex-wrap gap-3">
+
+                {% for skill in career_result.skills %}
+
+                <div class="px-5 py-3 bg-purple-50 border border-purple-100 rounded-xl text-purple-700 font-semibold">
+
+                    {{ skill }}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Roadmap -->
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+
+            <h2 class="text-xl sm:text-2xl font-bold text-orange-600 mb-6">
+
+                🗺 6-Month Learning Roadmap
+
+            </h2>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                {% for month, topic in career_result.roadmap.items() %}
+
+                <div class="border border-orange-100 rounded-xl overflow-hidden">
+
+                    <div class="bg-orange-500 text-white font-bold px-4 py-3">
+
+                        {{ month }}
+
+                    </div>
+
+                    <div class="p-4 text-gray-700">
+
+                        {{ topic }}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- AI Recommendations -->
+
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+
+            <h2 class="text-xl sm:text-2xl font-bold text-yellow-600 mb-5">
+
+                💡 AI Recommendations
+
+            </h2>
+
+            {% if prediction_class == "success" %}
+
+            <div class="space-y-3">
+
+                <div class="bg-emerald-50 rounded-xl p-4">
+                    ✅ Continue building advanced real-world projects.
+                </div>
+
+                <div class="bg-emerald-50 rounded-xl p-4">
+                    ✅ Practice Data Structures & Algorithms daily.
+                </div>
+
+                <div class="bg-emerald-50 rounded-xl p-4">
+                    ✅ Prepare for HR and Technical Interviews.
+                </div>
+
+                <div class="bg-emerald-50 rounded-xl p-4">
+                    ✅ Keep your Resume and LinkedIn profile updated.
+                </div>
+
+                <div class="bg-emerald-50 rounded-xl p-4">
+                    ✅ Participate in Coding Contests and Hackathons.
+                </div>
+
+                <div class="bg-emerald-50 rounded-xl p-4">
+                    ✅ Apply confidently to Product-Based Companies.
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <div class="space-y-3">
+
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    📚 Improve your CGPA if possible.
+                </div>
+
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    💻 Build more Full Stack or AI/ML projects.
+                </div>
+
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    🧠 Practice Data Structures & Algorithms daily.
+                </div>
+
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    🎯 Improve Aptitude and Problem Solving Skills.
+                </div>
+
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    🗣 Improve Communication and Interview Skills.
+                </div>
+
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    📜 Complete more Certifications.
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Profile Analytics -->
+
+        <div class="grid lg:grid-cols-2 gap-6 mb-6">
+
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+
+                <h2 class="text-xl font-bold text-blue-800 mb-5">
+
+                    📊 Academic Overview
+
+                </h2>
+
+                <div class="space-y-3">
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>CGPA</span>
+
+                        <strong>{{ student_data.cgpa }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>Placement Marks</span>
+
+                        <strong>{{ student_data.marks }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>DSA Rating</span>
+
+                        <strong>{{ student_data.dsa_rating }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>Communication</span>
+
+                        <strong>{{ student_data.communication }}</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+
+                <h2 class="text-xl font-bold text-emerald-700 mb-5">
+
+                    🏆 Project Portfolio
+
+                </h2>
+
+                <div class="space-y-3">
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>Full Stack</span>
+
+                        <strong>{{ student_data.fullstack_projects }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>AI / ML</span>
+
+                        <strong>{{ student_data.aiml_projects }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>Android</span>
+
+                        <strong>{{ student_data.android_projects }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>UI / UX</span>
+
+                        <strong>{{ student_data.uiux_projects }}</strong>
+
+                    </div>
+
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-3">
+
+                        <span>Certifications</span>
+
+                        <strong>{{ student_data.certifications }}</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Action Buttons -->
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+
+            <a
+                href="{{ url_for('prediction') }}"
+                class="px-7 py-4 rounded-xl bg-blue-600 text-white font-bold text-center hover:bg-blue-700 transition shadow-lg">
+
+                🔄 New Prediction
+
+            </a>
+
+            <a
+                href="{{ url_for('download_report') }}"
+                class="px-7 py-4 rounded-xl bg-emerald-600 text-white font-bold text-center hover:bg-emerald-700 transition shadow-lg">
+
+                📄 Download Report
+
+            </a>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <footer class="text-center text-white/90 text-sm py-5">
+
+            <p class="font-semibold">
+                🎓 Student Placement Prediction System
+            </p>
+
+            <p class="mt-1">
+                © 2026 • Flask • Machine Learning • Python • Tailwind CSS
+            </p>
+
+        </footer>
+
     </div>
-
-    <!-- ================= ACTION BUTTONS ================= -->
-
-    <div class="dashboard-buttons">
-
-        <a href="/" class="back-btn">
-            🔄 Predict Another Student
-        </a>
-
-       <a href="/download-report"
-   class="download-btn">
-
-    📄 Download Report
-
-</a>
-
-    </div>
-
-    <!-- ================= FOOTER ================= -->
-
-    <div class="footer">
-
-        <p>© 2026 Student Placement Prediction System</p>
-
-        <p>
-            Developed using Flask • Machine Learning • Python • HTML • CSS
-        </p>
-
-    </div>
-
-</div>
 
 </body>
+
 </html>
