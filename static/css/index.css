@@ -1,26 +1,35 @@
 /* ===========================
-   GLOBAL STYLES
+   GOOGLE FONT
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ===========================
+   GLOBAL
 =========================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
+
     min-height:100vh;
-    padding:40px 20px;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    background:linear-gradient(-45deg,#4facfe,#00f2fe,#43e97b,#38f9d7);
+
+    background:linear-gradient(135deg,#4facfe,#00f2fe,#43e97b,#38f9d7);
+
     background-size:400% 400%;
-    animation:bgAnimation 15s ease infinite;
+
+    animation:gradientBG 12s ease infinite;
+
+    padding:30px;
+
 }
 
-@keyframes bgAnimation{
+@keyframes gradientBG{
 
     0%{
         background-position:0% 50%;
@@ -37,43 +46,123 @@ body{
 }
 
 /* ===========================
-   CONTAINER
+   NAVBAR
 =========================== */
 
-.container{
+.top-navbar{
 
     width:100%;
-    max-width:900px;
+
+    max-width:1200px;
+
+    margin:0 auto 25px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px 30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
 
 }
 
-.left-panel{
+.welcome-text{
+
+    font-size:20px;
+
+    font-weight:600;
+
+    color:#1565c0;
+
+}
+
+.nav-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.new-btn,
+.logout-btn{
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.new-btn{
+
+    background:#28a745;
+
+}
+
+.new-btn:hover{
+
+    background:#218838;
+
+}
+
+.logout-btn{
+
+    background:#dc3545;
+
+}
+
+.logout-btn:hover{
+
+    background:#c82333;
+
+}
+
+/* ===========================
+   MAIN CARD
+=========================== */
+
+.prediction-card{
+
+    max-width:1200px;
+
+    margin:auto;
 
     background:rgba(255,255,255,.96);
+
+    backdrop-filter:blur(15px);
 
     border-radius:22px;
 
     padding:40px;
 
-    backdrop-filter:blur(18px);
-
-    box-shadow:0 20px 45px rgba(0,0,0,.18);
+    box-shadow:0 18px 45px rgba(0,0,0,.18);
 
 }
 
-/* ===========================
-   TITLE
-=========================== */
-
-h1{
+.prediction-card h1{
 
     text-align:center;
 
     color:#1f3c88;
 
-    font-size:36px;
-
     margin-bottom:10px;
+
+    font-size:36px;
 
 }
 
@@ -90,28 +179,38 @@ h1{
 }
 
 /* ===========================
-   SECTION
+   TWO COLUMN GRID
 =========================== */
 
-.section-heading{
+.form-grid{
 
-    color:#1565c0;
+    display:grid;
 
-    font-size:24px;
+    grid-template-columns:1fr 1fr;
 
-    margin:30px 0 20px;
+    gap:40px;
 
 }
 
-.divider{
+.form-section{
 
-    margin:35px 0;
+    background:#f8fbff;
 
-    border:none;
+    padding:25px;
 
-    height:2px;
+    border-radius:15px;
 
-    background:#e0e0e0;
+    border:1px solid #e5eef8;
+
+}
+
+.form-section h2{
+
+    color:#1565c0;
+
+    margin-bottom:20px;
+
+    font-size:24px;
 
 }
 
@@ -123,7 +222,7 @@ label{
 
     display:block;
 
-    margin:18px 0 8px;
+    margin:16px 0 8px;
 
     font-weight:600;
 
@@ -136,15 +235,17 @@ select{
 
     width:100%;
 
-    padding:14px 15px;
+    padding:13px 15px;
 
-    border:1px solid #d8d8d8;
+    border:1px solid #d7d7d7;
 
-    border-radius:12px;
+    border-radius:10px;
 
-    font-size:16px;
+    font-size:15px;
 
     transition:.3s;
+
+    background:white;
 
 }
 
@@ -155,7 +256,7 @@ select:focus{
 
     border-color:#2196f3;
 
-    box-shadow:0 0 12px rgba(33,150,243,.30);
+    box-shadow:0 0 12px rgba(33,150,243,.25);
 
 }
 
@@ -170,11 +271,19 @@ select:hover{
    BUTTON
 =========================== */
 
-button{
-
-    width:100%;
+.submit-section{
 
     margin-top:35px;
+
+    text-align:center;
+
+}
+
+button{
+
+    width:320px;
+
+    max-width:100%;
 
     padding:16px;
 
@@ -184,11 +293,11 @@ button{
 
     background:linear-gradient(90deg,#1565c0,#0d47a1);
 
-    color:#fff;
+    color:white;
 
     font-size:18px;
 
-    font-weight:bold;
+    font-weight:600;
 
     cursor:pointer;
 
@@ -205,43 +314,76 @@ button:hover{
 }
 
 /* ===========================
-   INPUT GROUP
-=========================== */
-
-input[type=number]{
-
-    appearance:textfield;
-
-}
-
-/* ===========================
    RESPONSIVE
 =========================== */
 
-@media(max-width:768px){
+@media(max-width:992px){
 
-.left-panel{
+    .form-grid{
 
-    padding:25px;
+        grid-template-columns:1fr;
+
+    }
+
+    .top-navbar{
+
+        flex-direction:column;
+
+        gap:18px;
+
+        text-align:center;
+
+    }
+
+    .prediction-card{
+
+        padding:25px;
+
+    }
 
 }
 
-h1{
+@media(max-width:600px){
 
-    font-size:28px;
+    body{
 
-}
+        padding:15px;
 
-.section-heading{
+    }
 
-    font-size:20px;
+    .prediction-card h1{
 
-}
+        font-size:28px;
 
-button{
+    }
 
-    font-size:16px;
+    .welcome-text{
 
-}
+        font-size:18px;
+
+    }
+
+    .nav-buttons{
+
+        flex-direction:column;
+
+        width:100%;
+
+    }
+
+    .new-btn,
+    .logout-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    button{
+
+        width:100%;
+
+    }
 
 }
