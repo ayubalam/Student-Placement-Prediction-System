@@ -47,8 +47,6 @@
             <div class="h-16 flex items-center justify-between">
 
 
-                <!-- LOGO -->
-
                 <div class="flex items-center gap-3">
 
                     <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center">
@@ -91,8 +89,6 @@
                 </div>
 
 
-
-                <!-- NAV ACTIONS -->
 
                 <div class="flex items-center gap-3">
 
@@ -181,40 +177,137 @@
 
 
 
-        <!-- STAT CARDS -->
+        <!-- PREDICTION OVERVIEW -->
 
-        <section class="grid md:grid-cols-3 gap-5 mb-7">
+        <section class="grid lg:grid-cols-3 gap-5 mb-7">
 
 
-            <!-- PLACEMENT -->
+            <!-- PLACEMENT RESULT -->
 
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
-                <div class="flex items-center justify-between mb-5">
+                <div class="p-6 sm:p-7">
 
-                    <div>
 
-                        <p class="text-sm text-slate-500">
-                            Placement Status
-                        </p>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
 
-                        <h3 class="text-xl font-bold text-slate-900 mt-1">
-                            Prediction
-                        </h3>
+
+                        <div>
+
+                            <p class="text-sm font-medium text-slate-500 mb-2">
+                                Latest Placement Prediction
+                            </p>
+
+                            <h3 class="text-2xl font-bold text-slate-900">
+                                Your Prediction Result
+                            </h3>
+
+                            <p class="text-sm text-slate-400 mt-2">
+                                Based on your academic and internship profile
+                            </p>
+
+                        </div>
+
+
+                        {% if prediction_class == "success" %}
+
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold text-sm">
+
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+
+                            Likely Placed
+
+                        </div>
+
+                        {% else %}
+
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-200 text-red-700 font-semibold text-sm">
+
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+
+                            Needs Improvement
+
+                        </div>
+
+                        {% endif %}
 
                     </div>
 
 
-                    <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
-                        📊
+                    <div class="mt-7 p-5 rounded-xl
+                        {% if prediction_class == 'success' %}
+                            bg-emerald-50 border border-emerald-100
+                        {% else %}
+                            bg-red-50 border border-red-100
+                        {% endif %}">
+
+
+                        <div class="flex items-start gap-4">
+
+
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl
+                                {% if prediction_class == 'success' %}
+                                    bg-emerald-100
+                                {% else %}
+                                    bg-red-100
+                                {% endif %}">
+
+                                {% if prediction_class == "success" %}
+                                    🎉
+                                {% else %}
+                                    📚
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="flex-1">
+
+
+                                <p class="font-bold text-lg
+                                    {% if prediction_class == 'success' %}
+                                        text-emerald-800
+                                    {% else %}
+                                        text-red-800
+                                    {% endif %}">
+
+                                    {{ prediction }}
+
+                                </p>
+
+
+                                <p class="text-sm mt-2
+                                    {% if prediction_class == 'success' %}
+                                        text-emerald-700
+                                    {% else %}
+                                        text-red-700
+                                    {% endif %}">
+
+
+                                    {% if prediction_class == "success" %}
+
+                                        Your current profile shows a positive placement outlook. Keep strengthening your technical skills and interview preparation.
+
+                                    {% else %}
+
+                                        Your profile currently shows room for improvement. Focus on academics, technical projects, DSA, and communication skills.
+
+                                    {% endif %}
+
+
+                                </p>
+
+
+                            </div>
+
+
+                        </div>
+
+
                     </div>
+
 
                 </div>
-
-
-                <p class="text-lg font-bold text-blue-600">
-                    {{ prediction }}
-                </p>
 
             </div>
 
@@ -222,78 +315,95 @@
 
             <!-- PROBABILITY -->
 
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
 
-                <div class="flex items-center justify-between mb-5">
+
+                <div class="flex items-center justify-between">
+
 
                     <div>
 
-                        <p class="text-sm text-slate-500">
+                        <p class="text-sm font-medium text-slate-500">
                             Placement Probability
                         </p>
 
-                        <h3 class="text-xl font-bold text-slate-900 mt-1">
+                        <p class="text-4xl font-bold text-blue-600 mt-2">
                             {{ probability }}%
-                        </h3>
+                        </p>
 
                     </div>
 
 
-                    <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
                         🎯
                     </div>
 
+
                 </div>
 
 
-                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                <div class="mt-7">
 
-                    <div
-                        class="bg-blue-600 h-2.5 rounded-full transition-all"
-                        style="width: {{ probability }}%;">
+
+                    <div class="flex justify-between text-xs text-slate-400 mb-2">
+
+                        <span>
+                            0%
+                        </span>
+
+                        <span>
+                            100%
+                        </span>
 
                     </div>
 
+
+                    <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+
+                        <div
+                            class="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-700"
+                            style="width: {{ probability }}%;">
+
+                        </div>
+
+                    </div>
+
+
                 </div>
 
 
-                <p class="text-xs text-slate-400 mt-3">
-                    Based on your academic profile
-                </p>
-
-            </div>
+                <div class="mt-5">
 
 
+                    {% if probability >= 80 %}
 
-            <!-- CAREER -->
-
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-
-                <div class="flex items-center justify-between mb-5">
-
-                    <div>
-
-                        <p class="text-sm text-slate-500">
-                            Career Recommendation
+                        <p class="text-sm font-semibold text-emerald-600">
+                            Excellent placement outlook
                         </p>
 
-                        <h3 class="text-xl font-bold text-slate-900 mt-1">
-                            AI Powered
-                        </h3>
+                    {% elif probability >= 60 %}
 
-                    </div>
+                        <p class="text-sm font-semibold text-blue-600">
+                            Good placement outlook
+                        </p>
 
+                    {% elif probability >= 40 %}
 
-                    <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl">
-                        💼
-                    </div>
+                        <p class="text-sm font-semibold text-yellow-600">
+                            Moderate placement outlook
+                        </p>
+
+                    {% else %}
+
+                        <p class="text-sm font-semibold text-red-600">
+                            Improvement recommended
+                        </p>
+
+                    {% endif %}
+
 
                 </div>
 
-
-                <p class="text-sm text-slate-500">
-                    Personalized career guidance based on your technical profile.
-                </p>
 
             </div>
 
@@ -302,36 +412,42 @@
 
 
 
-        <!-- PROFILE + CAREER -->
+        <!-- PROFILE SECTION -->
 
         <section class="grid lg:grid-cols-2 gap-6">
 
 
-            <!-- STUDENT PROFILE -->
+            <!-- ACADEMIC PROFILE -->
 
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
+
                 <div class="px-6 py-5 border-b border-slate-200">
 
+
                     <div class="flex items-center gap-3">
+
 
                         <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
                             🎓
                         </div>
 
+
                         <div>
 
                             <h3 class="font-bold text-slate-900">
-                                Student Profile
+                                Academic Profile
                             </h3>
 
                             <p class="text-xs text-slate-400">
-                                Academic information
+                                Your academic information
                             </p>
 
                         </div>
 
+
                     </div>
+
 
                 </div>
 
@@ -341,57 +457,98 @@
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            CGPA
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                📚
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                CGPA
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.cgpa }}
                         </span>
 
+
                     </div>
 
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            Placement Exam Marks
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                📝
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                Placement Exam Marks
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.marks }}
                         </span>
 
+
                     </div>
 
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            Internship
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                💼
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                Internship
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.internship }}
                         </span>
+
 
                     </div>
 
 
                     <div class="flex items-center justify-between py-3">
 
-                        <span class="text-sm text-slate-500">
-                            College Tier
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                🏫
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                College Tier
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.tier }}
                         </span>
 
+
                     </div>
 
 
                 </div>
+
 
             </div>
 
@@ -401,13 +558,17 @@
 
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
+
                 <div class="px-6 py-5 border-b border-slate-200">
 
+
                     <div class="flex items-center gap-3">
+
 
                         <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
                             💻
                         </div>
+
 
                         <div>
 
@@ -421,7 +582,9 @@
 
                         </div>
 
+
                     </div>
+
 
                 </div>
 
@@ -431,83 +594,144 @@
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            Full Stack Projects
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                🌐
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                Full Stack Projects
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.fullstack_projects }}
                         </span>
 
+
                     </div>
 
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            AI / ML Projects
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                🤖
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                AI / ML Projects
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.aiml_projects }}
                         </span>
 
+
                     </div>
 
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            Android Projects
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                📱
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                Android Projects
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.android_projects }}
                         </span>
 
+
                     </div>
 
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            UI / UX Projects
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                🎨
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                UI / UX Projects
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.uiux_projects }}
                         </span>
 
+
                     </div>
 
 
                     <div class="flex items-center justify-between py-3 border-b border-slate-100">
 
-                        <span class="text-sm text-slate-500">
-                            DSA Rating
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                🧠
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                DSA Rating
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.dsa_rating }}
                         </span>
+
 
                     </div>
 
 
                     <div class="flex items-center justify-between py-3">
 
-                        <span class="text-sm text-slate-500">
-                            Certifications
-                        </span>
+                        <div class="flex items-center gap-3">
+
+                            <span class="text-lg">
+                                📜
+                            </span>
+
+                            <span class="text-sm text-slate-500">
+                                Certifications
+                            </span>
+
+                        </div>
+
 
                         <span class="font-semibold text-slate-900">
                             {{ student_data.certifications }}
                         </span>
 
+
                     </div>
 
 
                 </div>
+
 
             </div>
 
@@ -523,7 +747,9 @@
 
             <div class="px-6 py-5 border-b border-slate-200">
 
+
                 <div class="flex items-center gap-3">
+
 
                     <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
                         🚀
@@ -542,7 +768,9 @@
 
                     </div>
 
+
                 </div>
+
 
             </div>
 
@@ -563,11 +791,12 @@
 
             </div>
 
+
         </section>
 
 
 
-        <!-- ACTIONS -->
+        <!-- ACTION BUTTONS -->
 
         <section class="mt-6 grid sm:grid-cols-2 gap-4">
 
